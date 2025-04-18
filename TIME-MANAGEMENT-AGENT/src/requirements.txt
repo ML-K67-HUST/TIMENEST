@@ -1,0 +1,15 @@
+pymongo
+fastapi
+openai
+uvicorn
+python-dotenv
+google-auth
+google-auth-oauthlib
+chromadb
+googlesearch-python
+trafilatura
+lxml-html-clean
+redis
+google-genai
+pymilvus
+jinja2

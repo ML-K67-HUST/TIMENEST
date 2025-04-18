@@ -1,0 +1,147 @@
+
+
+#week-view {
+  height: 100%;
+  width: 100%;
+  grid-area: week-view;
+  display: grid;
+  grid-template-areas:
+    'blank weekview_date_header'
+    'time_interval time_interval';
+  grid-template-columns: 1fr 14fr;
+  grid-template-rows: auto 1fr;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: none;
+  padding: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  visibility: visible;
+}
+
+.weekview_date_header {
+  grid-area: weekview_date_header;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.time_interval {
+  border-top: 0px solid;
+  grid-area: time_interval;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 14fr;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.time {
+  border-right: 1px solid #ddd;
+}
+
+.time .blank_time {
+  height: 20px;
+}
+
+.time p {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(96, 1fr);
+  height: 650px;
+  position: relative;
+}
+
+.time-slot {
+  border-right: 1px solid #ddd;
+  border-top: 1px solid #eee;
+  height: 20px;
+  box-sizing: border-box;
+}
+
+.time-slot:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar-day {
+  font-size: 1.15rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.calendar-day-today{
+  color: #4361ee;
+  font-weight: bold;
+}
+
+.day_of_week {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+
+.time-slot.highlighted {
+  background-color: rgba(67, 97, 238, 0.3);
+}
+
+.realtime-line {
+  position: absolute;
+  height: 3px;
+  background-color: rgba(200, 0, 0, 0.6); 
+  z-index: 999;
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(200, 0, 0, 0.5); 
+  transition: top 0.2s ease;
+  pointer-events: none;
+}
+
+.realtime-arrow {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 10px solid rgba(200, 0, 0, 0.9);
+  position: absolute;
+  top: -6.5px;
+  left: 0;
+  transition: left 0.2s ease, top 0.2s ease;
+  pointer-events: none;
+}
+
+.status-toggle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.1); /* nền mờ nhẹ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1px;
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 1;
+  padding: 0;
+  transition: all 0.2s ease-in-out;
+  border: none;
+}
+
+.status-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.2); /* mờ hơn chút khi hover */
+}
+
+.status-toggle:active {
+  transform: scale(0.95);
+}
+
+.task-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

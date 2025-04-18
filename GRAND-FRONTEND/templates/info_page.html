@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../static/styles/style_info.css" />
+    <script>
+        const USERID = '{{userid}}'; // This assumes the userID is passed from the Python script
+        console.log("userid: ",USERID)
+        const USERNAME = '{{username}}';
+        // const evtSource = new EventSource("/stream");
+      </script>  
+    <title>Personalize</title>
+</head>
+<body>
+    <div class="main">
+        <div class="upper-container">
+            <h1>Personalize Your Experience</h1>
+            <p>Answer a few quick questions to help us tailor your time management experience <br> to your specific needs and preferences.</p>
+        </div>
+        <div class="lower-container">
+            <div class="progress-zone">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-steps" id="progressSteps">
+                    <div class="progress-step active" data-step="1">1</div>
+                    <div class="progress-step" data-step="2">2</div>
+                    <div class="progress-step" data-step="3">3</div>
+                    <div class="progress-step" data-step="4">4</div>
+                    <div class="progress-step" data-step="5">5</div>
+                </div>
+            </div>
+            <div id="questionContainer">
+                <div class="question-card" id="question1">
+                    <div class="question-number">QUESTION 1 OF 5</div>
+                    <div class="">
+                        <h2 class="question-title">Who are you?</h2>
+                        <div class="text-input-container">
+                            <input type="text" id="occupation" class="text-input" placeholder="I am a..." oninput="checkOccupation()">
+                            <div class="suggestions">
+                                <div class="suggestion-chip" onclick="selectOccupation('An IT engineer who’s way too good at his job')">An IT engineer who’s way too good at his job</div>
+                                <div class="suggestion-chip" onclick="selectOccupation('A full-time student with part-time chaos')">A full-time student with part-time chaos</div>
+                                <div class="suggestion-chip" onclick="selectOccupation('An overachiever with bad memory')">An overachiever with bad memory</div>
+                                <div class="suggestion-chip" onclick="selectOccupation('Just a human trying to get my life together 😅')">Just a human trying to get my life together 😅</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-buttons">
+                        <div></div>
+                        <button onclick="nextQuestion(1)" disabled id="nextBtn1">Next</button>
+                    </div>
+                </div>
+                
+                <div class="question-card hidden" id="question2">
+                    <div class="question-number">QUESTION 2 OF 5</div>
+                    <div class="">
+                        <h2 class="question-title">What's your main goal with this assistant?</h2>
+                        <div class="options-container">
+                            <div class="option" data-value="get-organized" onclick="selectOption(this, 2)">
+                                <span class="option-emoji">📋</span>
+                                <span class="option-text">Get organized</span>
+                            </div>
+                            <div class="option" data-value="be-productive" onclick="selectOption(this, 2)">
+                                <span class="option-emoji">⚡</span>
+                                <span class="option-text">Be more productive</span>
+                            </div>
+                            <div class="option" data-value="stop-forgetting" onclick="selectOption(this, 2)">
+                                <span class="option-emoji">🧠</span>
+                                <span class="option-text">Stop forgetting things</span>
+                            </div>
+                            <div class="option" data-value="plan-better" onclick="selectOption(this, 2)">
+                                <span class="option-emoji">🗓️</span>
+                                <span class="option-text">Plan better</span>
+                            </div>
+                            <div class="option" data-value="exploring" onclick="selectOption(this, 2)">
+                                <span class="option-emoji">🔍</span>
+                                <span class="option-text">Just exploring</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-buttons">
+                        <button class="secondary" onclick="prevQuestion(2)">Back</button>
+                        <button onclick="nextQuestion(2)" id="nextBtn2">Next</button>
+                    </div>
+                </div>
+                
+                <div class="question-card hidden" id="question3">
+                    <div class="question-number">QUESTION 3 OF 5</div>
+                    <div class="">
+                        <h2 class="question-title">Which areas do you need help with?</h2>
+                        <div class="options-container">
+                            <div class="option" data-value="work" onclick="selectOption(this, 3, true)">
+                                <span class="option-emoji">💼</span>
+                                <span class="option-text">Work / Projects</span>
+                            </div>
+                            <div class="option" data-value="personal" onclick="selectOption(this, 3, true)">
+                                <span class="option-emoji">🏡</span>
+                                <span class="option-text">Personal life</span>
+                            </div>
+                            <div class="option" data-value="health" onclick="selectOption(this, 3, true)">
+                                <span class="option-emoji">💪</span>
+                                <span class="option-text">Health & fitness</span>
+                            </div>
+                            <div class="option" data-value="learning" onclick="selectOption(this, 3, true)">
+                                <span class="option-emoji">📚</span>
+                                <span class="option-text">Learning / Studying</span>
+                            </div>
+                            <div class="option" data-value="creative" onclick="selectOption(this, 3, true)">
+                                <span class="option-emoji">🎨</span>
+                                <span class="option-text">Creative work</span>
+                            </div>
+                            <div class="option" data-value="chores" onclick="selectOption(this, 3, true)">
+                                <span class="option-emoji">🧹</span>
+                                <span class="option-text">Chores / Errands</span>
+                            </div>
+                            <div class="option" data-value="other" onclick="selectOption(this, 3, true)">
+                                <span class="option-emoji">✨</span>
+                                <span class="option-text">Something else</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-buttons">
+                        <button class="secondary" onclick="prevQuestion(3)">Back</button>
+                        <button onclick="nextQuestion(3)" id="nextBtn3">Next</button>
+                    </div>
+                </div>
+                
+                <div class="question-card hidden" id="question4">
+                    <div class="question-number">QUESTION 4 OF 5</div>
+                    <div class="">
+                        <h2 class="question-title">When are you most productive?</h2>
+                        <div class="options-container">
+                            <div class="option" data-value="morning" onclick="selectOption(this, 4)">
+                                <span class="option-emoji">🌅</span>
+                                <span class="option-text">Morning</span>
+                            </div>
+                            <div class="option" data-value="afternoon" onclick="selectOption(this, 4)">
+                                <span class="option-emoji">☀️</span>
+                                <span class="option-text">Afternoon</span>
+                            </div>
+                            <div class="option" data-value="evening" onclick="selectOption(this, 4)">
+                                <span class="option-emoji">🌙</span>
+                                <span class="option-text">Evening / Night</span>
+                            </div>
+                            <div class="option" data-value="varies" onclick="selectOption(this, 4)">
+                                <span class="option-emoji">🔄</span>
+                                <span class="option-text">It depends</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-buttons">
+                        <button class="secondary" onclick="prevQuestion(4)">Back</button>
+                        <button onclick="nextQuestion(4)" id="nextBtn4">Next</button>
+                    </div>
+                </div>
+                
+                <div class="question-card hidden" id="question5">
+                    <div class="question-number">QUESTION 5 OF 5</div>
+                    <div class="">
+                        <h2 class="question-title">What kind of assistant do you prefer?</h2>
+                        <div class="options-container">
+                            <div class="option" data-value="motivational" onclick="selectOption(this, 5)">
+                                <span class="option-emoji">💪</span>
+                                <span class="option-text">Coachy & Motivational</span>
+                            </div>
+                            <div class="option" data-value="friendly" onclick="selectOption(this, 5)">
+                                <span class="option-emoji">😌</span>
+                                <span class="option-text">Chill & Friendly</span>
+                            </div>
+                            <div class="option" data-value="efficient" onclick="selectOption(this, 5)">
+                                <span class="option-emoji">🚀</span>
+                                <span class="option-text">Direct & Efficient</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-buttons">
+                        <button class="secondary" onclick="prevQuestion(5)">Back</button>
+                        <button onclick="submitAnswers()" id="submitBtn">Submit</button>
+                    </div>
+                </div>
+                
+                <!-- Completion Message -->
+                <div class="question-card hidden" id="completion">
+                    <div class="complete-message">
+                        <div class="option-emoji" style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
+                        <h2>All Set!</h2>
+                        <p>Thanks for sharing your preferences! Your experience has been customized based on your answers.</p>
+                        <button onclick="goToDashboard()">Go to Calendar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/info_page.js"></script>
+</body>
+</html>
